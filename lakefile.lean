@@ -13,3 +13,6 @@ lean_lib QuantumInfo
 lean_lib ClassicalInfo
 
 lean_lib StatMech
+
+lean_lib «RootLib» where
+  roots := #[`SingleQubitCircuit, `TwoQubitCircuit]  -- Add any other root files here
