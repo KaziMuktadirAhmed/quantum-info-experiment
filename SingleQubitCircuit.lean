@@ -38,8 +38,6 @@ noncomputable def circuitsEqBool (c₁ c₂ : SingleQubitCircuit) : Bool :=
 
 -- Examples: use circuitsEqBool directly with literal circuits
 
--- #eval circuitsEqBool [.H, .H] [.X, .X]      -- expect: true (both = identity)
-
 lemma ss_z_eq : circuitsEqBool [.S, .S] [.Z] = true := by
   unfold circuitsEqBool evalCircuit SingleQubitGate.toUnitary
   simp [Qubit.S_sq]
