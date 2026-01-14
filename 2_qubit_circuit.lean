@@ -2,7 +2,7 @@ import QuantumInfo.Finite.Qubit.Basic
 import QuantumInfo.Finite.CPTPMap
 import SingleQubitCircuit
 
-set_option diagnostics true
+-- set_option diagnostics true
 set_option maxHeartbeats 1000000
 
 inductive TwoQubitGate where
@@ -14,7 +14,7 @@ deriving Repr, DecidableEq
 
 abbrev TwoQubitCircuit := List TwoQubitGate
 namespace TwoQubitGate
-open Matrix
+open Matrix BigOperators
 
 def toString : TwoQubitGate → String
   | .single 0 g => s!"q[0]: {repr g}"
@@ -54,19 +54,11 @@ noncomputable def evalCircuit (c : TwoQubitCircuit) : 𝐔[Qubit × Qubit] :=
 def basisStates : List (Qubit × Qubit) := [(0,0), (0,1), (1,0), (1,1)]
 
 /-- Check if two circuits have identical unitaries (all 16 matrix entries equal) -/
-noncomputable def circuitsEqBool (c₁ c₂ : TwoQubitCircuit) : Bool :=
-  let U₁ := (evalCircuit c₁).val
-  let U₂ := (evalCircuit c₂).val
-  (basisStates.product basisStates).all fun (row, col) =>
-    decide (U₁ row col = U₂ row col)
+noncomputable def circuitsEq (c₁ c₂ : TwoQubitCircuit) : Prop :=
+  (evalCircuit c₁).val = (evalCircuit c₂).val
 
-lemma TwiceId : circuitsEqBool [.cnot, .cnot] [] = true := by
-  unfold circuitsEqBool evalCircuit TwoQubitGate.toUnitary
-  simp [basisStates]
-  all_goals
-  {
-    simp [Matrix.mul_apply, Qubit.CNOT, Qubit.X]
-    ring  -- This handles the ∑ sums automatically!
-  }
+lemma cnotTwiceId : circuitsEq [.cnot, .cnot] [] = true := by
+  unfold circuitsEq evalCircuit TwoQubitGate.toUnitary
+  norm_num [basisStates, List.all, List.product, Qubit.CNOT]
 
 end TwoQubitCircuit
