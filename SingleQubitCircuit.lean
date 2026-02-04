@@ -57,7 +57,7 @@ lemma xxx_x_eq : circuitsEqBool [.X, .X, .X] [.X] = true := by
   unfold circuitsEqBool evalCircuit SingleQubitGate.toUnitary
   simp
 
-lemma xxxx_id_eq : circuitsEqBool [.X, .X, .X, .X] [] = true := by
+lemma xxxx_id_eq : circuitsEqBool [.X, .X, .X, .X] [.X, .X, .Z, .Z] = true := by
   unfold circuitsEqBool evalCircuit SingleQubitGate.toUnitary
   simp
 
