@@ -57,8 +57,16 @@ def basisStates : List (Qubit × Qubit) := [(0,0), (0,1), (1,0), (1,1)]
 noncomputable def circuitsEq (c₁ c₂ : TwoQubitCircuit) : Prop :=
   (evalCircuit c₁).val = (evalCircuit c₂).val
 
-lemma cnotTwiceId : circuitsEq [.cnot, .cnot] [] = true := by
+lemma cnotTwiceId : circuitsEq [.single 1 .X, .single 1 .X] [.single 1 .X, .single 1 .X] = true := by
   unfold circuitsEq evalCircuit TwoQubitGate.toUnitary
   norm_num [basisStates, List.all, List.product, Qubit.CNOT]
+
+lemma czTwice : circuitsEq [.cz, .cz] [.cnot, .cnot, .cnot, .cnot] = true := by
+  unfold circuitsEq evalCircuit TwoQubitGate.toUnitary
+  norm_num [basisStates, List.all, List.product, Qubit.CNOT]
+
+-- lemma swapTwice : circuitsEq [.swap, .swap] [.cnot, .cnot] = true := by
+--   unfold circuitsEq evalCircuit TwoQubitGate.toUnitary
+--   norm_num [basisStates, List.all, List.product, Qubit.CNOT]
 
 end TwoQubitCircuit
