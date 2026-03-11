@@ -2,7 +2,7 @@ import QuantumInfo.Finite.Qubit.Basic
 import QuantumInfo.Finite.CPTPMap
 import SingleQubitCircuit
 
-
+#count_heartbeats
 
 inductive TwoQubitGate where
   | single (wire : Fin 2) (g : SingleQubitGate)
