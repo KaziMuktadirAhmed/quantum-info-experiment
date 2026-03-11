@@ -4,6 +4,8 @@ import SingleQubitCircuit
 
 #count_heartbeats
 
+set_option diagnostics true
+
 inductive TwoQubitGate where
   | single (wire : Fin 2) (g : SingleQubitGate)
   | cnot | swap | cz
