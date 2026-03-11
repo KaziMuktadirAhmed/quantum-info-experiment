@@ -1,6 +1,8 @@
 import QuantumInfo.Finite.Qubit.Basic
 import QuantumInfo.Finite.CPTPMap  -- brings in 𝐔
 
+#count_heartbeats
+
 /-- Primitive single-qubit gates, as syntax. -/
 inductive SingleQubitGate
   | Z | X | Y | H | S | T

@@ -2,8 +2,10 @@ import QuantumInfo.Finite.Qubit.Basic
 import QuantumInfo.Finite.CPTPMap
 import SingleQubitCircuit
 
+#count_heartbeats
+
 -- set_option diagnostics true
-set_option maxHeartbeats 1000000
+-- set_option maxHeartbeats 1000000
 
 inductive TwoQubitGate where
   | single (wire : Fin 2) (g : SingleQubitGate)
@@ -57,7 +59,7 @@ def basisStates : List (Qubit × Qubit) := [(0,0), (0,1), (1,0), (1,1)]
 noncomputable def circuitsEq (c₁ c₂ : TwoQubitCircuit) : Prop :=
   (evalCircuit c₁).val = (evalCircuit c₂).val
 
-lemma cnotTwiceId : circuitsEq [.cnot, .cnot] [.cz, .cz] = true := by
+lemma cnotTwiceId : circuitsEq [.cnot, .cnot, .cnot] [.cz, .cz, .cnot] = true := by
   unfold circuitsEq evalCircuit TwoQubitGate.toUnitary
   norm_num [basisStates, List.all, List.product, Qubit.CNOT]
 
