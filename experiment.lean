@@ -3,7 +3,7 @@ import QuantumInfo.Finite.CPTPMap
 import SingleQubitCircuit
 
 #count_heartbeats
-
+-- set_option maxHeartbeats 100000
 set_option diagnostics true
 
 inductive TwoQubitGate where
@@ -66,12 +66,12 @@ noncomputable def circuitsEqBool (c₁ c₂ : TwoQubitCircuit) : Bool :=
 
 -- Test examples
 lemma TwiceId : circuitsEqBool [.cnot, .cnot] [] = true := by
-  unfold circuitsEqBool evalCircuit TwoQubitGate.toUnitary
+  unfold circuitsEqBool evalCircuit TwoQubitGate.toUnitary Qubit.controllize
   simp [basisStates]
   all_goals
   {
     simp [Matrix.mul_apply, Qubit.CNOT, Qubit.X]
-    ring  -- This line was failing the heartbeat limit
+    simp [Fintype.sum_prod_type, Fin.sum_univ_succ]
   }
 
 end TwoQubitCircuit

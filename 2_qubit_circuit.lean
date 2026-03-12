@@ -4,7 +4,7 @@ import SingleQubitCircuit
 
 #count_heartbeats
 
--- set_option diagnostics true
+set_option diagnostics true
 -- set_option maxHeartbeats 1000000
 
 inductive TwoQubitGate where
