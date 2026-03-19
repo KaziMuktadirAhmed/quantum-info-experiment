@@ -65,7 +65,7 @@ noncomputable def circuitsEqBool (c₁ c₂ : TwoQubitCircuit) : Bool :=
 
 
 -- Test examples
-lemma TwiceId : circuitsEqBool [.cnot, .cnot] [] = true := by
+lemma TwiceId : circuitsEqBool [.cnot, .cnot, .cnot] [.cnot] = true := by
   unfold circuitsEqBool evalCircuit TwoQubitGate.toUnitary Qubit.controllize
   simp [basisStates]
   all_goals
